@@ -3,10 +3,12 @@ package com.itretina.tictactoe
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     protected fun buttonClicked(view:View){
         val selectedButton = view as Button
         var cellId = 0
-
+        Log.i(button1.background.toString(),"Button color")
         when(selectedButton.id){
             R.id.button1 -> cellId = 1
             R.id.button2 -> cellId = 2
@@ -39,19 +41,17 @@ class MainActivity : AppCompatActivity() {
     var player1 = ArrayList<Int>()
     var player2 = ArrayList<Int>()
     var activePlayer = 1
+    var allButtons = arrayListOf<View>()
 
     fun gamePlay(cellId:Int,selectedButton:Button){
 
         if(activePlayer == 1)
         {
             selectedButton.text = "X"
-            selectedButton.setTextColor(Color.WHITE)
-            selectedButton.setBackgroundColor(Color.DKGRAY)
             player1.add(cellId)
             activePlayer = 2
         }else{
             selectedButton.text = "O"
-            selectedButton.setBackgroundColor(Color.CYAN)
             player2.add(cellId)
             activePlayer = 1
         }
@@ -118,13 +118,53 @@ class MainActivity : AppCompatActivity() {
 
         if(winner != -1){
         Toast.makeText(this,"The winner is player"+winner,Toast.LENGTH_SHORT).show()
-
-            var allButtons =findViewById<View>(R.id.TableLayout1).touchables
-
-            for (button in allButtons){
-                button.isEnabled = false
-            }
+            disableButtons()
+            findViewById<View>(R.id.resetButton).isEnabled = true
         }
+
+    }
+
+    fun disableButtons(){
+        button1.isEnabled = false
+        button2.isEnabled = false
+        button3.isEnabled = false
+        button4.isEnabled = false
+        button5.isEnabled = false
+        button6.isEnabled = false
+        button7.isEnabled = false
+        button8.isEnabled = false
+        button9.isEnabled = false
+
+    }
+
+    fun resetGame(view: View){
+
+        Toast.makeText(this,"Resetting the game",Toast.LENGTH_SHORT).show()
+//        clear all players
+        player1.clear()
+        player2.clear()
+
+        button1.text = ""
+        button2.text = ""
+        button3.text = ""
+        button4.text = ""
+        button5.text = ""
+        button6.text = ""
+        button7.text = ""
+        button8.text = ""
+        button9.text = ""
+
+        button1.isEnabled = true
+        button2.isEnabled = true
+        button3.isEnabled = true
+        button4.isEnabled = true
+        button5.isEnabled = true
+        button6.isEnabled = true
+        button7.isEnabled = true
+        button8.isEnabled = true
+        button9.isEnabled = true
+
+        resetButton.isEnabled = false
 
     }
 }
