@@ -10,6 +10,7 @@ import android.widget.TableLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     var player1 = ArrayList<Int>()
     var player2 = ArrayList<Int>()
     var activePlayer = 1
-    var allButtons = arrayListOf<View>()
 
     fun gamePlay(cellId:Int,selectedButton:Button){
 
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             selectedButton.text = "X"
             player1.add(cellId)
             activePlayer = 2
+            autoPlay()
         }else{
             selectedButton.text = "O"
             player2.add(cellId)
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(winner != -1){
-        Toast.makeText(this,"The winner is player"+winner,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"The winner is player "+winner,Toast.LENGTH_SHORT).show()
             disableButtons()
             findViewById<View>(R.id.resetButton).isEnabled = true
         }
@@ -165,6 +166,39 @@ class MainActivity : AppCompatActivity() {
         button9.isEnabled = true
 
         resetButton.isEnabled = false
+
+    }
+
+    fun autoPlay(){
+        var emptyCells = ArrayList<Int>()
+        var selectButton:Button?
+        for (cellId in 1..9) {
+            if (!(player1.contains(cellId) || player2.contains(cellId))) {
+                emptyCells.add(cellId)
+            }
+        }
+
+//            var r = Random()
+//            var randomIndex = 0 + r.nextInt(emptyCells.size)
+//            var randomIndex =
+        Log.i(emptyCells.size.toString(),"Size of array")
+            val randomIndex = (0..emptyCells.size-1).shuffled().first()
+            var cellId = emptyCells.get(randomIndex)
+
+            when(cellId){
+                1 -> selectButton = button1
+                2 -> selectButton = button2
+                3 -> selectButton = button3
+                4 -> selectButton = button4
+                5 -> selectButton = button5
+                6 -> selectButton = button6
+                7 -> selectButton = button7
+                8 -> selectButton = button8
+                9 -> selectButton = button9
+                else -> selectButton = button9
+            }
+
+            gamePlay(cellId,selectButton)
 
     }
 }
