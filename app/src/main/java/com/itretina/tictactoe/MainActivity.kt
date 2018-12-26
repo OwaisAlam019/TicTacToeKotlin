@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -114,8 +116,15 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-        if(winner != -1)
+        if(winner != -1){
         Toast.makeText(this,"The winner is player"+winner,Toast.LENGTH_SHORT).show()
+
+            var allButtons =findViewById<View>(R.id.TableLayout1).touchables
+
+            for (button in allButtons){
+                button.isEnabled = false
+            }
+        }
 
     }
 }
