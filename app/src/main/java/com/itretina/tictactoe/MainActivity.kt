@@ -3,6 +3,7 @@ package com.itretina.tictactoe
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun buttonClicked(view:View){
-
+    protected fun buttonClicked(view:View){
+        Toast.makeText(this,"Button clicked..",Toast.LENGTH_LONG).show()
     }
 }
