@@ -1,5 +1,6 @@
 package com.itretina.tictactoe
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -29,7 +30,30 @@ class MainActivity : AppCompatActivity() {
             R.id.button9 -> cellId = 9
 
         }
-        Toast.makeText(this,"Button clicked.."+cellId,Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"Button clicked.."+cellId,Toast.LENGTH_SHORT).show()
+        gamePlay(cellId,selectedButton)
+    }
+
+    var player1 = ArrayList<Int>()
+    var player2 = ArrayList<Int>()
+    var activePlayer = 1
+
+    fun gamePlay(cellId:Int,selectedButton:Button){
+
+        if(activePlayer == 1)
+        {
+            selectedButton.text = "X"
+            selectedButton.setTextColor(Color.WHITE)
+            selectedButton.setBackgroundColor(Color.DKGRAY)
+            player1.add(cellId)
+            activePlayer = 2
+        }else{
+            selectedButton.text = "O"
+            selectedButton.setBackgroundColor(Color.CYAN)
+            player2.add(cellId)
+            activePlayer = 1
+        }
+        selectedButton.isEnabled = false
     }
     
 }
